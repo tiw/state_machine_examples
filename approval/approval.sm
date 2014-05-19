@@ -1,0 +1,27 @@
+name: approval
+Start: "new"
+
+State:
+- "new"
+- "manager_approved"
+- "project_manager_approved"
+- "manager_and_project_manager_approved"
+- "finished"
+
+Event:
+- ["manager approve", "manager_approve"]
+- ["project manager approve", "project_manager_approve"]
+- ["ceo approve", "ceo_approve"]
+
+Transition:
+- ["new", "manager_approve", "manager_approved"]
+- ["new", "project_manager_approve", "project_manager_approved"]
+- ["manager_approved", "project_manager_approve", "manager_and_project_manager_approved"]
+- ["project_manager_approved", "manager_approve", "manager_and_project_manager_approved"]
+- ["manager_and_project_manager_approved", "ceo_approve", "finished"]
+
+Event_Role:
+- ["manager_approve", "manager"]
+- ["project_manager_approve", "project_manager"]
+- ["ceo_approve", "ceo"]
+
